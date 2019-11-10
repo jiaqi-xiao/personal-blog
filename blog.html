@@ -585,7 +585,7 @@ h5,h6{font-size:1em;}
     </div>
 
     <div id="qrcode" class="ui wechat-qr flowing popup transition hidden "style="width: 130px !important;">
-        <!--<img src="./static/images/wechat.jpg" alt="" class="ui rounded image" style="width: 120px !important;">-->
+        <img src="./static/images/wechat.png" alt="" class="ui rounded image" style="width: 120px !important;">
     </div>
     <br>
     <br>
@@ -629,6 +629,7 @@ h5,h6{font-size:1em;}
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="./static/lib/prism/prism.js"></script>
 <script src="./static/lib/tocbot/tocbot.min.js"></script>
+<script src="./static/lib/qrcode/qrcode.min.js"></script>
 
     <script>
         $('.menu.toggle').click(function () {
@@ -652,6 +653,18 @@ h5,h6{font-size:1em;}
             popup : $('.toc-container.popup'),
             on : 'click',
             position: 'left center'
+        });
+        $('.wechat').popup({
+            popup : $('.wechat-qr'),
+            position: 'left center'
+        });
+        var qrcode = new QRCode("qrcode", {
+            text: "http://jindo.dev.naver.com/collie",
+            width: 110,
+            height: 110,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
         });
     </script>
 </body>
