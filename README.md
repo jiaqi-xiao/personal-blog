@@ -7,4 +7,3 @@
 
 - Created multiple functions for users to browse and comment on published articles, and then edit and publish blogs
   after logging into the system.
-
