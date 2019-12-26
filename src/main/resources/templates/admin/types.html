@@ -56,23 +56,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>刻意练习清单</td>
-                    <td>
-                        <a href="#" class="ui mini teal basic button">Edit</a>
-                        <a href="#" class="ui mini red basic button">Delete</a>
-                    </td>
-                </tr>
+                    <tr th:each="type,iterStat : ${page.content}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${type.name}">刻意练习清单</td>
+                        <td>
+                            <a href="#"
+                               th:href="@{/admin/types/{id}/input(id=${type.id})}"
+                               class="ui mini teal basic button">Edit
+                            </a>
+                            <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.id})}" class="ui mini red basic button">
+                                Delete</a>
+                        </td>
+                    </tr>
                 </tbody>
                 <tfoot>
                 <tr>
                     <th colspan="6">
                         <div class="ui mini pagination menu">
-                            <a class=" item">Prev</a>
-                            <a class=" item">Next</a>
+                            <a th:href="@{/admin/types(page=${page.number}-1)}" class=" item">Prev</a>
+                            <a th:href="@{/admin/types(page=${page.number}+1)}" class=" item">Next</a>
                         </div>
-                        <a href="#" class="ui mini right floated teal basic button">New</a>
+                        <a href="#" th:href="@{/admin/types/input}" class="ui mini right floated teal basic button">New</a>
                     </th>
                 </tr>
                 </tfoot>
