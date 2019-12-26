@@ -3,14 +3,14 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Categories</title>
+    <title>Add Tags</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
     <!--导航-->
-    <nav th:replace="admin/_fragments :: menu(2)"
+    <nav th:replace="admin/_fragments :: menu(3)"
          class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
@@ -39,8 +39,8 @@
     <div class="ui attached pointing menu">
         <div class="ui container">
             <div class="right menu">
-                <a href="#" class="teal active item">Publish</a>
-                <a href="#" class="item">List</a>
+                <a href="#" th:href="@{/admin/tags/input}" class="teal active item">Add</a>
+                <a href="#" th:href="@{/admin/tags}" class="item">List</a>
             </div>
         </div>
     </div>
@@ -48,20 +48,29 @@
     <!--中间内容-->
     <div  class="m-container-small m-padded-tb-big">
         <div class="ui container">
-            <form action="#" method="post" class="ui form">
-                <div class="field">
+            <form action="#" method="post"  th:object="${tag}" th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})} "  class="ui form">
+                <input type="hidden" name="id" th:value="*{id}">
+                <div class="required field">
                     <div class="ui left labeled input">
                         <label class="ui teal basic label">Name</label>
                         <input type="text" name="name"
-                               placeholder="Category Name">
+                               placeholder="Tag Name" th:value="*{name}">
                     </div>
 
                 </div>
 
                 <div class="ui error message"></div>
+                <!--/*/
+                <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+                  <i class="close icon"></i>
+                  <div class="header">verification failed</div>
+                  <p th:errors="*{name}">Submission of information does not comply with the rules</p>
+                </div>
+                 /*/-->
                 <div class="ui right aligned container">
-                    <button type="button" class="ui button" onclick="window.history.go(-1)" >Back</button>
-                    <button class="ui teal button">Submit</button>
+                    <button type="button" class="ui button"
+                            onclick="window.history.go(-1)" >Back</button>
+                    <button class="ui teal submit button">Submit</button>
                 </div>
 
             </form>
@@ -141,10 +150,10 @@
         $('.ui.form').form({
             fields : {
                 title : {
-                    identifier: 'title',
+                    identifier: 'name',
                     rules: [{
                         type : 'empty',
-                        prompt: 'Title：Please enter the title'
+                        prompt: 'Please enter the Tag name'
                     }]
                 }
             }
