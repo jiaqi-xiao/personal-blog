@@ -54,9 +54,9 @@ public class TypeController {
         }
         Type t = typeService.saveType(type);
         if (t == null ) {
-            attributes.addFlashAttribute("message", "Add Successfully");
-        } else {
             attributes.addFlashAttribute("message", "Failed to add");
+        } else {
+            attributes.addFlashAttribute("message", "Add Successfully");
         }
         return "redirect:/admin/types";
     }

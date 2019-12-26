@@ -55,9 +55,9 @@ public class TagController {
         }
         Tag t = tagService.saveTag(tag);
         if (t == null ) {
-            attributes.addFlashAttribute("message", "Add Successfully");
-        } else {
             attributes.addFlashAttribute("message", "Failed to add");
+        } else {
+            attributes.addFlashAttribute("message", "Add Successfully");
         }
         return "redirect:/admin/tags";
     }
