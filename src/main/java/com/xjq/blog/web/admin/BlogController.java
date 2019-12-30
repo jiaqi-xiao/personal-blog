@@ -13,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -63,6 +64,15 @@ public class BlogController {
         model.addAttribute("tags", tagService.listTag());
     }
 
+    @GetMapping("/blogs/{id}/input")
+    public String editInput(@PathVariable Long id, Model model) {
+        setTypeAndTag(model);
+        Blog blog = blogService.getBlog(id);
+        blog.init();
+        model.addAttribute("blog",blog);
+        return INPUT;
+    }
+
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
         blog.setUser((User) session.getAttribute("user"));
@@ -76,10 +86,17 @@ public class BlogController {
         }
 
         if (b == null ) {
-            attributes.addFlashAttribute("message", "Failed");
+            attributes.addFlashAttribute("message", "Operation Failed");
         } else {
-            attributes.addFlashAttribute("message", "Success");
+            attributes.addFlashAttribute("message", "Operation Succeed");
         }
+        return REDIRECT_LIST;
+    }
+
+    @GetMapping("/blogs/{id}/delete")
+    public String delete(@PathVariable Long id,RedirectAttributes attributes) {
+        blogService.deleteBlog(id);
+        attributes.addFlashAttribute("message", "Deleted Successfully");
         return REDIRECT_LIST;
     }
 }
