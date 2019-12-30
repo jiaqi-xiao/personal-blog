@@ -67,7 +67,7 @@
                 </div>
                 <div class="required field">
                     <div id="md-content" style="z-index: 1 !important;">
-                        <textarea placeholder="博客内容" name="content" style="display: none" th:text="*{content}"></textarea>
+                        <textarea placeholder="Blog Content" name="content" style="display: none" th:text="*{content}"></textarea>
                     </div>
                 </div>
 
@@ -106,7 +106,10 @@
                         <label class="ui teal basic label">Main Picture</label>
                         <input type="text" name="firstPicture" th:value="*{firstPicture}" placeholder="Main Picture url">
                     </div>
+                </div>
 
+                <div class="required field">
+                    <textarea name="description" th:text="*{description}" placeholder="Blog Description..." maxlength="200"></textarea>
                 </div>
 
                 <div class="inline fields">
@@ -256,6 +259,13 @@
                     rules: [{
                         type : 'empty',
                         prompt: 'Please enter the first picture'
+                    }]
+                },
+                description : {
+                    identifier: 'description',
+                    rules: [{
+                        type : 'empty',
+                        prompt: 'Please enter the blog description'
                     }]
                 }
             }

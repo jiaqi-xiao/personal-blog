@@ -4,6 +4,7 @@ import com.xjq.blog.NotFoundException;
 import com.xjq.blog.dao.BlogRepository;
 import com.xjq.blog.po.Blog;
 import com.xjq.blog.po.Type;
+import com.xjq.blog.util.MyBeanUtils;
 import com.xjq.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class BlogServiceImpl implements BlogService{
         if (b == null) {
             throw new NotFoundException("This blog is not exist");
         }
-        BeanUtils.copyProperties(blog,b);
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
         b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }
