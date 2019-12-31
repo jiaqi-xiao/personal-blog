@@ -103,8 +103,8 @@
                     <td th:text="${blog.published} ? 'Published':'Draft'">Draft</td>
                     <td th:text="${blog.updateTime}">2018-10-02 09:45</td>
                     <td>
-                        <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini teal basic button">Edit</a>
-                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini red basic button">Delete</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui mini compact teal basic button">Edit</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}" class="ui mini compact red basic button">Delete</a>
                     </td>
                 </tr>
                 </tbody>
