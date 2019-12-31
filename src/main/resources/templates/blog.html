@@ -41,31 +41,32 @@
             <div class="ui top attached segment">
                 <div class="ui horizontal link list">
                     <div class="item">
-                        <img src="https://unsplash.it/100/100?image=1062" alt="" class="ui avatar image">
-                        <div class="content"><a href="#" class="header">Jiaqi Xiao</a></div>
+                        <img src="https://unsplash.it/100/100?image=1062" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                        <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">Jiaqi Xiao</a></div>
                     </div>
                     <div class="item">
-                        <i class="calendar icon"></i> 2017-10-01
+                        <i class="calendar icon"></i><span
+                            th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2018-10-01</span>
                     </div>
                     <div class="item">
-                        <i class="eye icon"></i> 2342
+                        <i class="eye icon"></i> <span th:text="${blog.views}">2342</span>
                     </div>
                 </div>
             </div>
             <div class="ui attached segment">
                 <!--图片区域-->
-                <img src="https://unsplash.it/800/450?image=104" alt="" class="ui fluid rounded image">
+                <img src="https://unsplash.it/800/450?image=104" th:src="@{${blog.firstPicture}}" alt="" class="ui fluid rounded image">
             </div>
             <div class="ui attached padded segment">
                 <!--内容-->
                 <div class="ui right aligned basic segment">
-                    <div class="ui orange basic label">原创</div>
+                    <div class="ui orange basic label" th:text="${blog.flag}">原创</div>
                 </div>
 
-                <h2 class="ui center aligned header">关于刻意练习的清单</h2>
+                <h2 class="ui center aligned header" th:text="${blog.title}">关于刻意练习的清单</h2>
                 <br>
 
-                <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large">
+                <div id="content" class="typo typo-selection js-toc-content m-padded-lr-responsive m-padded-tb-large" th:utext="${blog.content}">
 
                     <h2 id="section1">一、关于 <i class="serif">Typo.css</i></h2>
 
@@ -428,7 +429,7 @@ h5,h6{font-size:1em;}
 
                 <!--标签-->
                 <div class="m-padded-lr-responsive">
-                    <div class="ui basic teal left pointing label">方法论</div>
+                    <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">方法论</div>
                 </div>
 
                 <!--赞赏-->
@@ -458,8 +459,10 @@ h5,h6{font-size:1em;}
                 <div class="ui middle aligned grid">
                     <div class="eleven wide column">
                         <ui class="list">
-                            <li>Author：Jiaqi Xiao</li>
-                            <li>Publish Date：2018-10-02</li>
+                            <li>Author: <span th:text="${blog.user.nickname}">Jiaqi Xiao</span><a href="#" th:href="@{/about}"
+                                                                                                  target="_blank">（Contact）</a></li>
+                            <li>Publish
+                                Date: <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2018-10-02 09:08</span></li>
                         </ui>
                     </div>
                     <div class="five wide column">
@@ -666,14 +669,18 @@ h5,h6{font-size:1em;}
             popup : $('.wechat-qr'),
             position: 'left center'
         });
+
+        var serurl = "127.0.0.1:8080";
+        var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
         var qrcode = new QRCode("qrcode", {
-            text: "http://jindo.dev.naver.com/collie",
+            text: serurl+url,
             width: 110,
             height: 110,
             colorDark : "#000000",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.H
         });
+        
         $('#toTop-button').click(function () {
             $(window).scrollTo(0,500);
         });

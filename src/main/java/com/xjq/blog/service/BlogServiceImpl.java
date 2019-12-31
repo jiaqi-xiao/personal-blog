@@ -4,6 +4,7 @@ import com.xjq.blog.NotFoundException;
 import com.xjq.blog.dao.BlogRepository;
 import com.xjq.blog.po.Blog;
 import com.xjq.blog.po.Type;
+import com.xjq.blog.util.MarkdownUtils;
 import com.xjq.blog.util.MyBeanUtils;
 import com.xjq.blog.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
@@ -77,6 +78,19 @@ public class BlogServiceImpl implements BlogService{
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
         return blogRepository.findByQuery(query,pageable);
+    }
+
+    @Override
+    public Blog getAndConvert(Long id) {
+        Blog blog = blogRepository.findOne(id);
+        if (blog == null) {
+            throw new NotFoundException("This article is invalid");
+        }
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        String content = b.getContent();
+        b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return b;
     }
 
     @Override
