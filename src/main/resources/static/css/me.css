@@ -147,6 +147,10 @@ body {
     color: #333 !important;
 }
 
+.m-teal {
+    color: #00B5AD !important;
+}
+
 .m-mobile-show {
    display: none !important;
 }
