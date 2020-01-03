@@ -477,16 +477,16 @@ h5,h6{font-size:1em;}
                     <div th:fragment="commentList">
                         <div class="ui threaded comments" style="max-width: 100%;">
                             <h3 class="ui dividing header">Comments</h3>
-                            <div class="comment">
+                            <div class="comment" th:each="comment : ${comments}">
                                 <a class="avatar">
-                                    <img src="https://unsplash.it/100/100?image=1062">
+                                    <img src="https://unsplash.it/100/100?image=1062" th:src="@{${comment.avatar}}">
                                 </a>
                                 <div class="content">
-                                    <a class="author">Matt</a>
+                                    <a class="author" th:text="${comment.nickname}">Matt</a>
                                     <div class="metadata">
-                                        <span class="date">Today at 5:42PM</span>
+                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
                                     </div>
-                                    <div class="text">
+                                    <div class="text" th:text="${comment.content}">
                                         How artistic!
                                     </div>
                                     <div class="actions">
@@ -494,6 +494,7 @@ h5,h6{font-size:1em;}
                                     </div>
                                 </div>
                             </div>
+                            <!--/*-->
                             <div class="comment">
                                 <a class="avatar">
                                     <img src="https://unsplash.it/100/100?image=1062">
@@ -547,12 +548,13 @@ h5,h6{font-size:1em;}
                                     </div>
                                 </div>
                             </div>
+                            <!--*/-->
                         </div>
                     </div>
                 </div>
                 <div class="ui form">
-                    <input type="text" name="blog.id" th:value="${blog.id}">
-                    <input type="text" name="parentComment.id" value="-1">
+                    <input type="hidden" name="blog.id" th:value="${blog.id}">
+                    <input type="hidden" name="parentComment.id" value="-1">
                     <div class="field">
                         <textarea name="content" placeholder="Please enter comment..."></textarea>
                     </div>
@@ -728,9 +730,9 @@ h5,h6{font-size:1em;}
             }
         });
 
-        $(function () {
-            $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
-        });
+        // $(function () {
+        //     $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
+        // });
 
         $('#commentpost-btn').click(function () {
             var boo = $('.ui.form').form('validate form');
@@ -744,6 +746,7 @@ h5,h6{font-size:1em;}
         });
 
         function postData() {
+            // console.log('start post');
             $("#comment-container").load(/*[[@{/comments}]]*/"",{
                 "parentComment.id" : $("[name='parentComment.id']").val(),
                 "blog.id" : $("[name='blog.id']").val(),
@@ -751,9 +754,10 @@ h5,h6{font-size:1em;}
                 "email"   : $("[name='email']").val(),
                 "content" : $("[name='content']").val()
             },function (responseTxt, statusTxt, xhr) {
-                $(window).scrollTo($('#comment-container'),500);
+                // $(window).scrollTo($('#comment-container'),500);
                 clearContent();
             });
+            // console.log('end post');
         }
 
         function clearContent() {
