@@ -55,26 +55,31 @@
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header m-text-thin m-text-spaced " >Latest Posts</h4>
-                <div class="ui inverted link list">
-                    <a href="#" class="item m-text-thin">User Story</a>
-                    <a href="#" class="item m-text-thin">User Story</a>
-                    <a href="#" class="item m-text-thin">User Story</a>
+                <div id="newblog-container">
+                    <div class="ui inverted link list" th:fragment="newblogList">
+                        <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">User Story</a>
+                        <!--/*-->
+                        <a href="#" class="item m-text-thin">User Story</a>
+                        <a href="#" class="item m-text-thin">User Story</a>
+                        <!--*/-->
+                    </div>
                 </div>
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted m-text-thin header m-text-space">Contact Me</h4>
                 <div class="ui inverted link list">
-                    <a href="#" class="item">Email: jxiao10@uci.edu</a>
+                    <a href="#" class="item" th:text="#{index.email}">Email: jxiao10@uci.edu</a>
                     <a href="https://www.linkedin.com/in/jq-xiao/" class="item">Linkedin</a>
                 </div>
             </div>
             <div class="seven wide column">
                 <h4 class="ui inverted m-text-thin header m-text-space">Blog</h4>
-                <p class="m-text-thin m-text-space m-opacity-mini">1111111111111111111111111111</p>
+                <p class="m-text-thin m-text-space m-opacity-mini" th:text="#{index.blogDescription}">1111111111111111111111111111</p>
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-space m-opacity-tiny">Copyright © 2018-2019 Designed by Jiaqi Xiao </p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - <span th:text="${#dates.year(#dates.createNow())}">2020
+        </span> Designed by Jiaqi Xiao</p>
     </div>
 
 </footer>
@@ -87,6 +92,9 @@
     <script src="../static/lib/tocbot/tocbot.min.js" th:src="@{/lib/tocbot/tocbot.min.js}"></script>
     <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
     <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script>
+        $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+    </script>
 </th:block>
 
 </body>

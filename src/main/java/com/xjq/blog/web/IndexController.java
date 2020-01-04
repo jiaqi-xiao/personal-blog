@@ -4,6 +4,7 @@ import com.xjq.blog.NotFoundException;
 import com.xjq.blog.service.BlogService;
 import com.xjq.blog.service.TagService;
 import com.xjq.blog.service.TypeService;
+import org.apache.coyote.http11.filters.SavedRequestInputFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -48,5 +49,11 @@ public class IndexController {
     public String blog(@PathVariable Long id,Model model) {
         model.addAttribute("blog", blogService.getAndConvert(id));
         return "blog";
+    }
+
+    @GetMapping("footer/newblog")
+    public String newblogs(Model model) {
+        model.addAttribute("newblogs", blogService.listRecommendBlogTop(3));
+        return "_fragments :: newblogList";
     }
 }

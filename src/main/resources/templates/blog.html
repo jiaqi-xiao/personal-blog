@@ -703,7 +703,7 @@ h5,h6{font-size:1em;}
             position: 'left center'
         });
 
-        var serurl = "127.0.0.1:8080";
+        var serurl = /*[[${blog.serurl}}]]*/"127.0.0.1:8080";
         var url = /*[[@{/blog/{id}(id=${blog.id})}]]*/"";
         var qrcode = new QRCode("qrcode", {
             text: serurl+url,
