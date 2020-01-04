@@ -13,6 +13,10 @@ body {
 .m-padded {
     padding: 1em !important;
 }
+.m-padded-lf {
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+}
 .m-padded-tb-mini {
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
