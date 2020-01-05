@@ -1,9 +1,10 @@
-# Personal Blog
+# Spring Boot Personal Blog
 
 ---
 
-- Utilized Semantic framework to build responsive front-end website, and back-end development based on Spring boot
-  frameworks.
+![](https://img.shields.io/badge/plateform-web-green)![](https://img.shields.io/badge/release-v1.0-blue)![](https://img.shields.io/badge/springboot-v2.2.1-blue)![](https://img.shields.io/badge/thymeleaf-v3.0.11-blue)![](https://img.shields.io/badge/license-MIT-green)
 
-- Created multiple functions for users to browse and comment on published articles, and then edit and publish blogs
-  after logging into the system.
+This is a full-stack blog website project. It utilized Semantic and Thymeleaf to build responsive front-end website. It's back-end development based on Spring boot frameworks.
+
+## Preview
+
